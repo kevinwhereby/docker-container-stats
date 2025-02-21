@@ -94,6 +94,15 @@ app.post("/monitor", async (req, response) => {
     const containerDetails = results.pop();
     assert(containerDetails, "No container details");
 
+    if (containerMonitor.isMonitoring(containerDetails.Id)) {
+        sendResponse({
+            response,
+            body: { message: "Already monitoring this container" },
+            status: 400,
+        });
+        return;
+    }
+
     const container = docker.getContainer(containerDetails.Id);
     if (!container) {
         sendResponse({

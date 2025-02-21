@@ -87,4 +87,8 @@ export class ContainerMonitor {
         delete this.streams[containerId];
         delete this.containerStateMonitorIntervals[containerId];
     }
+
+    isMonitoring(id: string) {
+        return !!this.containerStats[id];
+    }
 }
